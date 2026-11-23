@@ -1,12 +1,8 @@
 FROM eclipse-temurin:21-jdk
 WORKDIR /app
 
-COPY . /app
-
-RUN SOURCE="$(find /app -path '*/src/main/java/com/veterinaria/ApiServer.java' -print -quit)" \
-    && test -n "$SOURCE" \
-    && mkdir -p /app/out \
-    && javac -d /app/out "$SOURCE"
+COPY ApiServer.java /app/ApiServer.java
+RUN mkdir -p /app/out && javac -d /app/out /app/ApiServer.java
 
 ENV PORT=8080
 ENV DATA_DIR=/data
